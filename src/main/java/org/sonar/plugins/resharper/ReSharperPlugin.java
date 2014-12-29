@@ -20,6 +20,7 @@
 package org.sonar.plugins.resharper;
 
 import com.google.common.collect.ImmutableList;
+
 import org.sonar.api.PropertyType;
 import org.sonar.api.SonarPlugin;
 import org.sonar.api.config.PropertyDefinition;
@@ -35,11 +36,14 @@ public class ReSharperPlugin extends SonarPlugin {
   public static final String TIMEOUT_MINUTES_PROPERTY_KEY = "sonar.resharper.timeoutMinutes";
   public static final String CACHES_HOME_PROPERTY_KEY = "sonar.resharper.cacheshome";
   public static final String PROFILE_PROPERTY_KEY = "sonar.resharper.profile";
+  public static final String CUSTOM_SEVERITIES_DEFINITON_PROPERTY_KEY = "sonar.resharper.customSeverities.definition";
+  public static final String CUSTOM_SEVERITIES_PATH_PROPERTY_KEY = "sonar.resharper.customSeverities.path";
 
 
   public static final String OLD_INSTALL_DIRECTORY_KEY = "sonar.resharper.installDirectory";
 
   private static final String CATEGORY = "ReSharper";
+  public static final String PROFILE_DEFAULT="Sonar way";
 
   /**
    * {@inheritDoc}
@@ -99,6 +103,27 @@ public class ReSharperPlugin extends SonarPlugin {
         PropertyDefinition.builder(PROFILE_PROPERTY_KEY)
         .name("settings file to use by inspectcode")
         .description("inspectcode profile")
+        .category(CATEGORY)
+        .onQualifiers(Qualifiers.PROJECT)
+        .type(PropertyType.STRING)
+        .build(),
+        PropertyDefinition.builder(CUSTOM_SEVERITIES_PATH_PROPERTY_KEY)
+        .name("file with custom severities")
+        .description("Absolute path to file with exported ReSharper settings: RESHARPER, Manage Options...,Import/Export Settiings, Export to file,CodeInspection")
+        .category(CATEGORY)
+        .onQualifiers(Qualifiers.PROJECT)
+        .type(PropertyType.STRING)
+        .build(),
+        PropertyDefinition.builder(CUSTOM_SEVERITIES_DEFINITON_PROPERTY_KEY)
+        .name("custom severities")
+        .description("Add &lt;String&gt; vales from ReSharper's custom definitions (including &lt:wpf:ResourceDictionary&gt;) A restart is required to take affect.")
+        .category(CATEGORY)
+        .onQualifiers(Qualifiers.PROJECT)
+        .type(PropertyType.STRING)
+        .build(),
+        PropertyDefinition.builder(PROFILE_PROPERTY_KEY)
+        .name("R# profile")
+        .description("Profile to which rules will be saved on restart, if profile does not exist")
         .category(CATEGORY)
         .onQualifiers(Qualifiers.PROJECT)
         .type(PropertyType.STRING)

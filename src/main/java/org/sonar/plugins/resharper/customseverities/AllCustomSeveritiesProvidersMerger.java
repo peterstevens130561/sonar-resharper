@@ -1,6 +1,6 @@
 /*
- * Sonar .NET Plugin :: ReSharper
- * Copyright (C) 2013 John M. Wright
+ * SonarQube ReSharper Plugin
+ * Copyright (C) 2014 SonarSource
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -17,14 +17,13 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.wrightfully.sonar.plugins.dotnet.resharper.customseverities;
+package org.sonar.plugins.resharper.customseverities;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.config.Settings;
 import org.sonar.api.profiles.RulesProfile;
-
-import com.wrightfully.sonar.plugins.dotnet.resharper.ReSharperConstants;
+import org.sonar.plugins.resharper.ReSharperPlugin;
 
 public class AllCustomSeveritiesProvidersMerger {
     
@@ -53,8 +52,8 @@ public class AllCustomSeveritiesProvidersMerger {
     * @see com.wrightfully.sonar.plugins.dotnet.resharper.customseverities.CustomSeverities#getProfileName()
     */
    public String getProfileName() {
-           String profileName=ReSharperConstants.PROFILE_DEFAULT;
-           String customName=settings.getString(ReSharperConstants.PROFILE_NAME);
+           String profileName=ReSharperPlugin.PROFILE_DEFAULT;
+           String customName=settings.getString(ReSharperPlugin.PROFILE_PROPERTY_KEY);
            if(customName != null && customName.length()>0) {
                profileName = customName;
            } else {

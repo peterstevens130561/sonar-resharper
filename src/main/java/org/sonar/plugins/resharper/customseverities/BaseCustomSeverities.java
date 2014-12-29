@@ -1,6 +1,6 @@
 /*
- * Sonar .NET Plugin :: ReSharper
- * Copyright (C) 2013 John M. Wright
+ * SonarQube ReSharper Plugin
+ * Copyright (C) 2014 SonarSource
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.wrightfully.sonar.plugins.dotnet.resharper.customseverities;
+package org.sonar.plugins.resharper.customseverities;
 
 import java.util.List;
 
@@ -34,24 +34,21 @@ import org.sonar.api.config.Settings;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.RulePriority;
+import org.sonar.plugins.resharper.ReSharperException;
+import org.sonar.plugins.resharper.customseverities.ReSharperUtils.ReSharperSeverity;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.wrightfully.sonar.dotnet.tools.resharper.ReSharperException;
-import com.wrightfully.sonar.plugins.dotnet.resharper.customseverities.EmptyNodeList;
-import com.wrightfully.sonar.plugins.dotnet.resharper.ReSharperConfiguration;
-import com.wrightfully.sonar.plugins.dotnet.resharper.ReSharperUtils;
-import com.wrightfully.sonar.plugins.dotnet.resharper.ReSharperUtils.ReSharperSeverity;
 
 public abstract class BaseCustomSeverities implements CustomSeverities {
 
     private static final String CUSTOM_SEVERITIES_PREFIX = "/Default/CodeInspection/Highlighting/InspectionSeverities";
     private static final Logger LOG = LoggerFactory.getLogger(PropertyBasedCustomSeverities.class);
-    private ReSharperConfiguration configuration ;
     private String definitionKey;
     CustomSeveritiesMap severities = new CustomSeveritiesMap();
+	private Settings settings;
     
    
    
@@ -62,7 +59,7 @@ public abstract class BaseCustomSeverities implements CustomSeverities {
    public void merge(RulesProfile profile) {
        List<ActiveRule> rules = profile.getActiveRules();
        definitionKey = getDefinitionKey() ;
-       String definitionValue=getConfiguration().getString(definitionKey);
+       String definitionValue=settings.getString(definitionKey);
        if (rules == null || StringUtils.isEmpty(definitionValue)) {
            return;
        }
@@ -213,15 +210,9 @@ public abstract class BaseCustomSeverities implements CustomSeverities {
 
 
     public void setSettings(Settings settings) {
-            setConfiguration(new ReSharperConfiguration(settings));
+            this.settings = settings;
         }
     
-     public ReSharperConfiguration getConfiguration() {
-         return configuration;
-     }
-     public void setConfiguration(ReSharperConfiguration configuration) {
-         this.configuration = configuration;
-     }
 
     abstract String getDefinitionKey();
 }

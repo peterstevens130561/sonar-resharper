@@ -1,6 +1,6 @@
 /*
- * SonarQube ReSharper Plugin
- * Copyright (C) 2014 SonarSource
+ * .NET tools :: ReSharper Runner
+ * Copyright (C) 2013 John M. Wright
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -17,21 +17,20 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.resharper.customseverities;
+package org.sonar.plugins.resharper;
 
-import org.sonar.api.config.Settings;
-import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.utils.SonarException;
+
 /**
- * Usage:
- * CustomSeverities customSeverities = new Your_Implementation(profile);
- * customSeverities.setSettings(settings);
- * profile.setName(customSeverities.getProfileName());
- * customSeverities.mergeCustomSeverities(profile);
+ * Exception generated for ReSharper inspectcode execution.
  */
-public interface CustomSeverities {
+public class ReSharperException extends SonarException {
 
-    void merge(RulesProfile profile);
-
-    void setSettings(Settings settings);
+  /**
+   * {@inheritDoc}
+   */
+  public ReSharperException(String message) {
+    super(message);
+  }
 
 }

@@ -1,6 +1,6 @@
 /*
- * Sonar .NET Plugin :: ReSharper
- * Copyright (C) 2013 John M. Wright
+ * SonarQube ReSharper Plugin
+ * Copyright (C) 2014 SonarSource
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
-package com.wrightfully.sonar.plugins.dotnet.resharper.customseverities;
+package org.sonar.plugins.resharper.customseverities;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,9 +28,9 @@ import java.io.InputStream;
 import org.apache.commons.io.input.BOMInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonar.plugins.resharper.ReSharperPlugin;
 import org.xml.sax.InputSource;
 
-import com.wrightfully.sonar.plugins.dotnet.resharper.ReSharperConstants;
 
 
 public class FileCustomSeverities extends BaseCustomSeverities {
@@ -50,14 +50,14 @@ public class FileCustomSeverities extends BaseCustomSeverities {
             InputStream inputStream = new BOMInputStream(fileReader);
             return new InputSource(inputStream);           
         } catch (FileNotFoundException e) {
-            LOG.error("could not open " + path + "defined in " + ReSharperConstants.CUSTOM_SEVERITIES_PATH + " reason:", e);
+            LOG.error("could not open " + path + "defined in " + ReSharperPlugin.CUSTOM_SEVERITIES_PATH_PROPERTY_KEY + " reason:", e);
         }
         return null;
     }
 
     @Override
     String getDefinitionKey() {
-        return ReSharperConstants.CUSTOM_SEVERITIES_PATH;
+        return ReSharperPlugin.CUSTOM_SEVERITIES_PATH_PROPERTY_KEY;
     }
 
 }

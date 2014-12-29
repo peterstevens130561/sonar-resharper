@@ -1,6 +1,6 @@
 /*
- * Sonar .NET Plugin :: ReSharper
- * Copyright (C) 2013 John M. Wright
+ * SonarQube ReSharper Plugin
+ * Copyright (C) 2014 SonarSource
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -17,22 +17,19 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package com.wrightfully.sonar.plugins.dotnet.resharper.customseverities;
-
-
+package org.sonar.plugins.resharper.customseverities;
 
 import java.io.StringReader;
+
+import org.sonar.plugins.resharper.ReSharperPlugin;
 import org.xml.sax.InputSource;
-
-import com.wrightfully.sonar.plugins.dotnet.resharper.ReSharperConstants;
-
 
 
 public class PropertyBasedCustomSeverities extends BaseCustomSeverities {
     
     @Override
     String getDefinitionKey() {
-        return ReSharperConstants.CUSTOM_SEVERITIES_DEFINITON;
+        return ReSharperPlugin.CUSTOM_SEVERITIES_DEFINITON_PROPERTY_KEY;
     }
     
     @Override
