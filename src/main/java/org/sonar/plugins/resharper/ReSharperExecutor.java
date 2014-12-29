@@ -95,8 +95,8 @@ public class ReSharperExecutor {
 	 *            the executable
 	 * 
 	 */
-	public void setExecutable(File executableDir) {
-		this.executable = new File(executableDir,"inspectcode.exe");
+	public void setExecutable(File executable) {
+		this.executable = executable;
 	}
 
 	/**
