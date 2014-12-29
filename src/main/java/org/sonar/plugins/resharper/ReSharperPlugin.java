@@ -36,6 +36,7 @@ public class ReSharperPlugin extends SonarPlugin {
   public static final String TIMEOUT_MINUTES_PROPERTY_KEY = "sonar.resharper.timeoutMinutes";
   public static final String CACHES_HOME_PROPERTY_KEY = "sonar.resharper.cacheshome";
   public static final String PROFILE_PROPERTY_KEY = "sonar.resharper.profile";
+  public static final String RULES_PROFILE_PROPERTY_KEY = "sonar.resharper.rulerepository";
   public static final String CUSTOM_SEVERITIES_DEFINITON_PROPERTY_KEY = "sonar.resharper.customSeverities.definition";
   public static final String CUSTOM_SEVERITIES_PATH_PROPERTY_KEY = "sonar.resharper.customSeverities.path";
 
@@ -121,7 +122,7 @@ public class ReSharperPlugin extends SonarPlugin {
         .onQualifiers(Qualifiers.PROJECT)
         .type(PropertyType.STRING)
         .build(),
-        PropertyDefinition.builder(PROFILE_PROPERTY_KEY)
+        PropertyDefinition.builder(RULES_PROFILE_PROPERTY_KEY)
         .name("R# profile")
         .description("Profile to which rules will be saved on restart, if profile does not exist")
         .category(CATEGORY)

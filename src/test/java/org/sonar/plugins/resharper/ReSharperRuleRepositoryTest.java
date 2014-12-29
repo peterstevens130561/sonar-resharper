@@ -20,23 +20,27 @@
 package org.sonar.plugins.resharper;
 
 import org.junit.Test;
+import org.sonar.api.config.Settings;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.XMLRuleParser;
 
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.fest.assertions.Assertions.assertThat;
 
 public class ReSharperRuleRepositoryTest {
 
   @Test
   public void test() {
-    ReSharperRuleRepository repo = new ReSharperRuleRepository(new ReSharperConfiguration("cs", "cs-resharper"), new XMLRuleParser());
+	Settings settings = mock(Settings.class);
+    ReSharperRuleRepository repo = new ReSharperRuleRepository(new ReSharperConfiguration("cs", "cs-resharper"), settings,new XMLRuleParser());
     assertThat(repo.getLanguage()).isEqualTo("cs");
     assertThat(repo.getKey()).isEqualTo("cs-resharper");
 
     List<Rule> rules = repo.createRules();
-    assertThat(rules.size()).isEqualTo(675);
+    assertThat(rules.size()).isEqualTo(650);
     for (Rule rule : rules) {
       assertThat(rule.getKey()).isNotNull();
       assertThat(rule.getName()).isNotNull();

@@ -43,8 +43,8 @@ public class CSharpReSharperProvider {
 
   public static class CSharpReSharperRuleRepository extends ReSharperRuleRepository {
 
-    public CSharpReSharperRuleRepository(XMLRuleParser xmlRuleParser) {
-      super(RESHARPER_CONF, xmlRuleParser);
+    public CSharpReSharperRuleRepository(XMLRuleParser xmlRuleParser,Settings settings) {
+      super(RESHARPER_CONF, settings, xmlRuleParser);
     }
 
   }

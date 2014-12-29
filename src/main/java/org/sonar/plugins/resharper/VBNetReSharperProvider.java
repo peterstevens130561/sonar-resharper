@@ -43,8 +43,8 @@ public class VBNetReSharperProvider {
 
   public static class VBNetReSharperRuleRepository extends ReSharperRuleRepository {
 
-    public VBNetReSharperRuleRepository(XMLRuleParser xmlRuleParser) {
-      super(RESHARPER_CONF, xmlRuleParser);
+    public VBNetReSharperRuleRepository(XMLRuleParser xmlRuleParser,Settings settings) {
+      super(RESHARPER_CONF, settings, xmlRuleParser);
     }
 
   }

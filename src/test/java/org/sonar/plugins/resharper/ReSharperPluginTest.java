@@ -51,7 +51,8 @@ public class ReSharperPluginTest {
       "sonar.resharper.profile",
       "sonar.resharper.installDirectory",
       "sonar.resharper.customSeverities.definition",
-      "sonar.resharper.customSeverities.path");
+      "sonar.resharper.customSeverities.path",
+      "sonar.resharper.rulerepository");
   }
 
   private static Set<String> nonProperties(List extensions) {
