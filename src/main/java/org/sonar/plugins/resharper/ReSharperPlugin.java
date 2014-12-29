@@ -34,6 +34,8 @@ public class ReSharperPlugin extends SonarPlugin {
   public static final String INSPECTCODE_PATH_PROPERTY_KEY = "sonar.resharper.inspectCodePath";
   public static final String TIMEOUT_MINUTES_PROPERTY_KEY = "sonar.resharper.timeoutMinutes";
   public static final String CACHES_HOME_PROPERTY_KEY = "sonar.resharper.inspectcode.cacheshome";
+  public static final String PROFILE_PROPERTY_KEY = "sonar.resharper.inspectcode.profile";
+
 
   public static final String OLD_INSTALL_DIRECTORY_KEY = "sonar.resharper.installDirectory";
 
@@ -90,6 +92,13 @@ public class ReSharperPlugin extends SonarPlugin {
        PropertyDefinition.builder(CACHES_HOME_PROPERTY_KEY)
         .name("caches home")
         .description("inspectcode caches")
+        .category(CATEGORY)
+        .onQualifiers(Qualifiers.PROJECT)
+        .type(PropertyType.STRING)
+        .build(),
+        PropertyDefinition.builder(PROFILE_PROPERTY_KEY)
+        .name("settings file to use by inspectcode")
+        .description("inspectcode profile")
         .category(CATEGORY)
         .onQualifiers(Qualifiers.PROJECT)
         .type(PropertyType.STRING)

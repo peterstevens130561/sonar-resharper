@@ -21,6 +21,8 @@ package org.sonar.plugins.resharper;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
@@ -89,6 +91,7 @@ public class ReSharperSensor implements Sensor {
     writer.write(enabledRuleKeys(), rulesetFile);
 
     File reportFile = new File(fileSystem.workingDir(), "resharper-report.xml");
+    executor.setReportFile(reportFile);
     
     String projectName = settings.getString(ReSharperPlugin.PROJECT_NAME_PROPERTY_KEY);
     executor.setProject(projectName);
@@ -99,7 +102,11 @@ public class ReSharperSensor implements Sensor {
     File executable=new File(settings.getString(ReSharperPlugin.INSPECTCODE_PATH_PROPERTY_KEY));
     executor.setExecutable(executable);
     
-    executor.setReportFile(reportFile);
+    String profile=settings.getString(ReSharperPlugin.PROFILE_PROPERTY_KEY);
+    if(StringUtils.isNotEmpty(profile)) {
+    	File profileFile=new File(profile);
+    	executor.setProfile(profileFile);
+    }
     
     File solution = new File(settings.getString(ReSharperPlugin.SOLUTION_FILE_PROPERTY_KEY));
     executor.setSolution(solution);
