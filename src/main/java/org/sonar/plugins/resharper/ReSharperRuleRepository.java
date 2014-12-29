@@ -27,7 +27,7 @@ import java.util.List;
 
 public class ReSharperRuleRepository extends RuleRepository {
 
-  private static final String REPOSITORY_NAME = "ReSharper";
+  private static final String REPOSITORY_NAME = "ReFunny";
 
   private final XMLRuleParser xmlRuleParser;
 
