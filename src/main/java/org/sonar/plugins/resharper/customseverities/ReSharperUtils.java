@@ -1,6 +1,6 @@
 /*
- * Sonar .NET Plugin :: ReSharper
- * Copyright (C) 2013 John M. Wright
+ * SonarQube ReSharper Plugin
+ * Copyright (C) 2014 SonarSource
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
