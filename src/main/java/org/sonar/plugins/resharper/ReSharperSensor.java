@@ -89,12 +89,27 @@ public class ReSharperSensor implements Sensor {
     writer.write(enabledRuleKeys(), rulesetFile);
 
     File reportFile = new File(fileSystem.workingDir(), "resharper-report.xml");
+    
+    String projectName = settings.getString(ReSharperPlugin.PROJECT_NAME_PROPERTY_KEY);
+    executor.setProject(projectName);
+    
+    String cachesHome=settings.getString(ReSharperPlugin.CACHES_HOME_PROPERTY_KEY);
+    executor.setCachesHome(cachesHome);
+    
+    File executable=new File(settings.getString(ReSharperPlugin.INSPECTCODE_PATH_PROPERTY_KEY));
+    executor.setExecutable(executable);
+    
+    executor.setReportFile(reportFile);
+    
+    File solution = new File(settings.getString(ReSharperPlugin.SOLUTION_FILE_PROPERTY_KEY));
+    executor.setSolution(solution);
+    
+    int timeout=settings.getInt(ReSharperPlugin.TIMEOUT_MINUTES_PROPERTY_KEY);
+    executor.setTimeOut(timeout);
+    
+    executor.execute();
 
-    executor.execute(
-      settings.getString(ReSharperPlugin.INSPECTCODE_PATH_PROPERTY_KEY), settings.getString(ReSharperPlugin.PROJECT_NAME_PROPERTY_KEY),
-      settings.getString(ReSharperPlugin.SOLUTION_FILE_PROPERTY_KEY), rulesetFile, reportFile, settings.getInt(ReSharperPlugin.TIMEOUT_MINUTES_PROPERTY_KEY));
-
-    File solutionFile = new File(settings.getString(ReSharperPlugin.SOLUTION_FILE_PROPERTY_KEY));
+    File solutionFile = new File(settings.getString(ReSharperPlugin.SOLUTION_FILE_PROPERTY_KEY));  
     for (ReSharperIssue issue : parser.parse(reportFile)) {
       if (!hasFileAndLine(issue)) {
         logSkippedIssue(issue, "which has no associated file.");
@@ -144,7 +159,7 @@ public class ReSharperSensor implements Sensor {
   }
 
   public void checkProperties(Settings settings) {
-    checkProperty(settings, ReSharperPlugin.PROJECT_NAME_PROPERTY_KEY);
+    //checkProperty(settings, ReSharperPlugin.PROJECT_NAME_PROPERTY_KEY);
     checkProperty(settings, ReSharperPlugin.SOLUTION_FILE_PROPERTY_KEY);
   }
 
