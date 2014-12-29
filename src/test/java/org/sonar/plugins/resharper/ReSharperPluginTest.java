@@ -49,7 +49,9 @@ public class ReSharperPluginTest {
       "sonar.resharper.timeoutMinutes",
       "sonar.resharper.cacheshome",
       "sonar.resharper.profile",
-      "sonar.resharper.installDirectory");
+      "sonar.resharper.installDirectory",
+      "sonar.resharper.customSeverities.definition",
+      "sonar.resharper.customSeverities.path");
   }
 
   private static Set<String> nonProperties(List extensions) {
