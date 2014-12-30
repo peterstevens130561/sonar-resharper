@@ -55,8 +55,9 @@ public class ReSharperSonarWayProfile extends ProfileDefinition {
         merger.setSettings(settings);
         merger.setProfile(profile);
         merger.merge();
-        profile.setName(merger.getProfileName());
-
+        String profileName=merger.getProfileName();
+        profile.setName(profileName);
+        LOG.info("created profile {} for language {}",profileName,languageKey);
         return profile;
     }
 

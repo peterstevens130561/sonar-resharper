@@ -41,7 +41,7 @@ public class ReSharperExecutor {
 
 	private ArrayList<String> arguments = new ArrayList<String>();
 
-	private List<String> properties;
+	private List<String> properties = new ArrayList<String>();
 
 	private String projectName;
 
@@ -82,8 +82,13 @@ public class ReSharperExecutor {
 		return this;
 	}
 	
-	public ReSharperExecutor setProperties(List<String> properties) {
-		this.properties = properties;
+	/**
+	 * Adds the properties to the internal list of properties. Does not check for duplicates!
+	 * @param properties 
+	 * @return this
+	 */
+	public ReSharperExecutor addProperties(List<String> properties) {
+		this.properties.addAll(properties);
 		return this;
 	}
 

@@ -38,6 +38,7 @@ import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReSharperSensor implements Sensor {
@@ -108,6 +109,9 @@ public class ReSharperSensor implements Sensor {
     	executor.setProfile(profileFile);
     }
     
+    List<String> properties = getProperties();
+    executor.addProperties(properties);
+    
     File solution = new File(settings.getString(ReSharperPlugin.SOLUTION_FILE_PROPERTY_KEY));
     executor.setSolution(solution);
     
@@ -145,6 +149,20 @@ public class ReSharperSensor implements Sensor {
     }
   }
 
+	private List<String> getProperties() {
+		List<String> properties = new ArrayList<String>();
+		addPropertyIfDefined(properties, "Platform","sonar.dotnet.buildPlatform");
+		addPropertyIfDefined(properties, "Configuration","sonar.dotnet.buildConfiguration");
+		return properties;
+	}
+
+	private void addPropertyIfDefined(List<String> properties, String msBuildPropertyName,String sonarPropertyName) {
+		String value=settings.getString(sonarPropertyName);
+		if(!StringUtils.isEmpty(value)) {
+			value=value.replace(" ", "");
+			properties.add(msBuildPropertyName + "=" + value);
+		}
+	}
   private static boolean hasFileAndLine(ReSharperIssue issue) {
     return issue.filePath() != null && issue.line() != null;
   }

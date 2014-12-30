@@ -19,6 +19,7 @@
  */
 package org.sonar.plugins.resharper.customseverities;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.config.Settings;
@@ -53,14 +54,12 @@ public class AllCustomSeveritiesProvidersMerger {
     */
    public String getProfileName() {
            String profileName=ReSharperPlugin.PROFILE_DEFAULT;
-           String customName=settings.getString(ReSharperPlugin.PROFILE_PROPERTY_KEY);
-           if(customName != null && customName.length()>0) {
+           String customName=settings.getString(ReSharperPlugin.RULES_PROFILE_PROPERTY_KEY);
+           if(StringUtils.isNotEmpty(customName)) {
                profileName = customName;
            } else {
-               LOG.warn("No profile defined for resharper, using default");
-           }
-               
-           LOG.debug("Using profile " + profileName);
+               LOG.warn("Property {} not set. This property is used to define the profile where the rules & severities are saved to, instead using {}",ReSharperPlugin.PROFILE_PROPERTY_KEY,profileName);
+           }           
            return profileName;
        }
     
