@@ -10,7 +10,7 @@
 
   <groupId>org.codehaus.sonar-plugins.resharper</groupId>
   <artifactId>sonar-resharper-plugin</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1-RC1BHI</version>
   <packaging>sonar-plugin</packaging>
 
   <name>SonarQube ReSharper Plugin</name>
@@ -39,6 +39,11 @@
       <id>dbolkensteyn</id>
       <name>Dinesh Bolkensteyn</name>
       <organization>SonarSource</organization>
+    </developer>
+        <developer>
+      <id>stevpet</id>
+      <name>Peter Stevens</name>
+      <organization></organization>
     </developer>
   </developers>
   <scm>
