@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReSharperRuleRepository extends RuleRepository {
-  private static final Logger LOG = LoggerFactory.getLogger(ReSharperFileParser.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ReSharperRuleRepository.class);
   private static final String REPOSITORY_NAME = "Resharper";
 
   private final XMLRuleParser xmlRuleParser;
@@ -57,7 +57,7 @@ public class ReSharperRuleRepository extends RuleRepository {
       List<Rule> rules = new ArrayList<Rule>();
 
       // ReSharper rules
-      InputStream rulesFileStream = ReSharperRuleRepository.class.getResourceAsStream("/org/sonar/plugins/resharper/DefaultRules.ReSharper");
+      InputStream rulesFileStream = ReSharperRuleRepository.class.getResourceAsStream(ReSharperPlugin.DEFAULT_RULES);
       Reader reader = new InputStreamReader(rulesFileStream);
       ReSharperFileParser parser = new ReSharperFileParser();
       List<ReSharperRule> reSharperRules = parser.parseRules(reader);
@@ -69,12 +69,14 @@ public class ReSharperRuleRepository extends RuleRepository {
       String customRules = settings.getString(ReSharperPlugin.CUSTOM_SEVERITIES_DEFINITON_PROPERTY_KEY);
       if (StringUtils.isNotBlank(customRules)) {
           try {
+        	  LOG.info("adding custom defined severities");
               String customRulesXml = "<Report><IssueTypes>" + customRules + "</IssueTypes></Report>";
 
               Reader customRulesReader = new StringReader(customRulesXml);
               List<ReSharperRule> customReSharperRules = parser.parseRules(customRulesReader);
               for(ReSharperRule rRule: customReSharperRules) {
                   //TODO: do i need to check if the rule has already been added?
+            	  LOG.info("adding rule {}", rRule.toString());
                   rules.add(rRule.toSonarRule());
               }
           } catch (Exception ex)

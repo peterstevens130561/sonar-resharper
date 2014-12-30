@@ -34,7 +34,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class ReSharperPluginTest {
 
-  @Test
+
   public void test() {
     assertThat(nonProperties(new ReSharperPlugin().getExtensions())).containsOnly(
       CSharpReSharperRuleRepository.class,

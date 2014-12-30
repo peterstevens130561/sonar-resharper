@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.resharper;
+package org.sonar.plugins.resharper.profiles;
 
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.rules.Rule;
@@ -46,7 +46,7 @@ public class ReSharperRule {
 
     @Override
     public String toString() {
-        return "ReSharperRule(id=" + id + ",priority=" + severity.toString()+ ")";
+        return "ReSharperRule(id=" + id + ")";
     }
 
 

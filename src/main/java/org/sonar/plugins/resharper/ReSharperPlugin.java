@@ -25,6 +25,10 @@ import org.sonar.api.PropertyType;
 import org.sonar.api.SonarPlugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
+import org.sonar.plugins.resharper.profiles.ReSharperProfileExporter;
+import org.sonar.plugins.resharper.profiles.ReSharperProfileImporter;
+import org.sonar.plugins.resharper.profiles.ReSharperSonarWayProfileCSharp;
+import org.sonar.plugins.resharper.profiles.ReSharperSonarWayProfileVbNet;
 
 import java.util.List;
 
@@ -39,8 +43,9 @@ public class ReSharperPlugin extends SonarPlugin {
   public static final String RULES_PROFILE_PROPERTY_KEY = "sonar.resharper.rulerepository";
   public static final String CUSTOM_SEVERITIES_DEFINITON_PROPERTY_KEY = "sonar.resharper.customSeverities.definition";
   public static final String CUSTOM_SEVERITIES_PATH_PROPERTY_KEY = "sonar.resharper.customSeverities.path";
-
-
+  public static final String REPOSITORY_KEY = "resharper";
+  public static final String REPOSITORY_NAME = "ReSharper";
+  public static final String DEFAULT_RULES="/org/sonar/plugins/resharper/DefaultRules.ReSharper";
   public static final String OLD_INSTALL_DIRECTORY_KEY = "sonar.resharper.installDirectory";
 
   private static final String CATEGORY = "ReSharper";
@@ -55,9 +60,13 @@ public class ReSharperPlugin extends SonarPlugin {
 
     builder.addAll(CSharpReSharperProvider.extensions());
     builder.addAll(VBNetReSharperProvider.extensions());
-
+    builder.add(ReSharperProfileExporter.CSharpRegularReSharperProfileExporter.class);
+    builder.add(ReSharperProfileExporter.VbNetRegularReSharperProfileExporter.class);
+    builder.add(ReSharperProfileImporter.CSharpRegularReSharperProfileImporter.class);
+    builder.add(ReSharperProfileImporter.VbNetRegularReSharperProfileImporter.class);
+    builder.add(ReSharperSonarWayProfileCSharp.class);
+    builder.add(ReSharperSonarWayProfileVbNet.class);
     builder.addAll(pluginProperties());
-
     return builder.build();
   }
 
